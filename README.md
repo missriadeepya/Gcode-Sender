@@ -31,14 +31,14 @@ def removeComment(string):
  
 # Open serial port
 ```
-#s = serial.Serial('/dev/ttyACM0',115200)
+#s = serial.Serial('COM6',115200)
 s = serial.Serial(args.port,115200)
 print 'Opening Serial Port'
 ```
 
 # Open g-code file
 ```
-#f = open('/media/UNTITLED/shoulder.g','r');
+#f = open('/media/UNTITLED/cuboid.gcode','r');
 f = open(args.file,'r');
 print 'Opening gcode file'
  ```
@@ -53,14 +53,14 @@ print 'Sending gcode'
  
 # Stream g-code
 ```
-for line in f:
+or line in f:
 	l = removeComment(line)
 	l = l.strip() # Strip all EOL characters for streaming
 	if  (l.isspace()==False and len(l)>0) :
-		print 'Sending: ' + l
-		s.write(l + '\n') # Send g-code block
+		print ('Sending: ' + l)
+		s.write(bytes(l,'utf-8') + b'\n') # Send g-code block
 		grbl_out = s.readline() # Wait for response with carriage return
-		print ' : ' + grbl_out.strip()
+		print ((bytes(' : ',"utf-8")) + grbl_out.strip())
  ```
  
 # Wait here until printing is finished to close serial port and file.
