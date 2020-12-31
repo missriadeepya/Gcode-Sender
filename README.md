@@ -53,7 +53,7 @@ print 'Sending gcode'
  
 # Stream g-code
 ```
-or line in f:
+for line in f:
 	l = removeComment(line)
 	l = l.strip() # Strip all EOL characters for streaming
 	if  (l.isspace()==False and len(l)>0) :
